@@ -16,6 +16,10 @@ function init() {
             console.log(name)
             dropdown.append("option").text(name).attr("value", name)
         });
+        
+        // call funtions for plots and demographic information
+        demoinfo(samples.names);
+        plots(samples.names);
     });
 };
 
@@ -23,12 +27,12 @@ function init() {
 function optionChanged(id) {
 
     console.log(id)
-    // demoinfo()
-
+    demoinfo(id)
+    plots(id)
 };
 
 // function for demographic information from metadata
-function demoinfo() {
+function demoinfo(id) {
 
     // read in the samples.json file
     d3.json("samples.json").then((samples) => {
@@ -55,15 +59,15 @@ function demoinfo() {
 
             // append the data to the panel
             var indInfo = panel.append("h4");
-            indInfo.text([key, value]);
+            indInfo.text(value);
         });
 
     });
 
 };
 
-// function for plots
-function plots() {
+// function for plots (top 10 OTUs per id)
+function plots(id) {
 
     // read in the samples.json file
     d3.json("samples.json").then((samples) => {
@@ -76,10 +80,44 @@ function plots() {
         var idSample = samps.filter(samps => samps.id.toString() === id)[0];
 
         // create variable for sample_values
-        
+        var sampleValues = samps.sample_values.slice(0, 10);
+
         // create variable for otu_ids
+        var otuIds = samps.otu_ids.slice(0, 10);
 
         // create variable for otu_labels
+        var labels = samps.otu_labels.slice(0, 10);
+
+        // create trace variable for bar plot
+        var trace = {
+            x: sampleValues,
+            y: otuIds,
+            type: 'bar',
+            text: labels,
+            orientation: 'h'
+        };
+
+        // create data variable 
+        var data = [trace];
+
+        // create layout variable for bar plot
+        var layout = {
+            title: 'Top 10 OTUs',
+            font: {
+                family: 'Raleway, sans-serif'
+            },
+            showlegend: false,
+            xaxis: {
+                tickangle: -45
+            },
+            yaxis: {
+                zeroline: false,
+                gridwidth: 2
+            },
+            bargap: 0.05
+        };
+
+        Plotly.newPlot('myDiv', data, layout);
 
     });
 
