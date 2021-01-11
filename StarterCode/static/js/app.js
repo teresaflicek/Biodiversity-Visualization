@@ -18,7 +18,7 @@ function init() {
         });
         
         // call funtions for plots and demographic information
-        demoinfo(samples.names);
+        // demoinfo(samples.names);
         plots(samples.names);
     });
 };
@@ -27,44 +27,45 @@ function init() {
 function optionChanged(id) {
 
     console.log(id)
-    demoinfo(id)
+    // demoinfo(id)
     plots(id)
 };
 
 // function for demographic information from metadata
-function demoinfo(id) {
+// function demoinfo(id) {
 
-    // read in the samples.json file
-    d3.json("samples.json").then((samples) => {
+//     // read in the samples.json file
+//     d3.json("samples.json").then((samples) => {
 
-        // create a variable for the demographic information
-        var meta = samples.metadata;
+//         // create a variable for the demographic information
+//         var meta = samples.metadata;
 
-        // check if data is loaded successfully
-        console.log(meta)
+//         // check if data is loaded successfully
+//         console.log(meta)
 
-        // filter metadata by id
-        var idMeta = meta.filter(meta => meta.id.toString() === id)[0];
+//         // filter metadata by id
+//         var idMeta = meta.filter(meta => meta.id.toString() === id)[0];
 
-        // select the demographic information panel id
-        var panel = d3.select("#sample-metadata");
+//         // select the demographic information panel id
+//         var panel = d3.select("#sample-metadata");
 
-        // clear the existing table when new id is chosen
-        panel.html("");
+//         // clear the existing table when new id is chosen
+//         panel.html("");
 
-        Object.entries(idMeta).forEach(([key, value]) => {
+//         // loop through the data and render the table with the correct values
+//         Object.entries(idMeta).forEach(([key, value]) => {
 
-            // check if data is loaded successfully
-            console.log(key);
+//             // check if data is loaded successfully
+//             console.log(key);
 
-            // append the data to the panel
-            var indInfo = panel.append("h4");
-            indInfo.text(value);
-        });
+//             // append the data to the panel
+//             var indInfo = panel.append("h4");
+//             indInfo.text(value);
+//         });
 
-    });
+//     });
 
-};
+// };
 
 // function for plots (top 10 OTUs per id)
 function plots(id) {
@@ -78,7 +79,8 @@ function plots(id) {
 
         // filter samples by id
         var idSample = samps.filter(samps => samps.id.toString() === id)[0];
-
+        console.log(idSample)
+       
         // create variable for sample_values
         var sampleValues = samps.sample_values.slice(0, 10);
 
@@ -117,7 +119,11 @@ function plots(id) {
             bargap: 0.05
         };
 
-        Plotly.newPlot('myDiv', data, layout);
+        // plot the bar plot
+        Plotly.newPlot('bar', data, layout);
+
+        // create the trace variable for the bubble chart
+        
 
     });
 
