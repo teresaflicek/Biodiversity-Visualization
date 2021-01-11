@@ -16,7 +16,7 @@ function init() {
             console.log(name)
             dropdown.append("option").text(name).attr("value", name)
         });
-        
+
         // call funtions for plots and demographic information
         // demoinfo(samples.names);
         plots(samples.names);
@@ -80,7 +80,7 @@ function plots(id) {
         // filter samples by id
         var idSample = samps.filter(samps => samps.id.toString() === id)[0];
         console.log(idSample)
-       
+
         // create variable for sample_values
         var sampleValues = samps.sample_values.slice(0, 10);
 
@@ -91,7 +91,7 @@ function plots(id) {
         var labels = samps.otu_labels.slice(0, 10);
 
         // create trace variable for bar plot
-        var trace = {
+        var trace1 = {
             x: sampleValues,
             y: otuIds,
             type: 'bar',
@@ -100,10 +100,10 @@ function plots(id) {
         };
 
         // create data variable 
-        var data = [trace];
+        var data1 = [trace1];
 
         // create layout variable for bar plot
-        var layout = {
+        var layout1 = {
             title: 'Top 10 OTUs',
             font: {
                 family: 'Raleway, sans-serif'
@@ -120,15 +120,63 @@ function plots(id) {
         };
 
         // plot the bar plot
-        Plotly.newPlot('bar', data, layout);
+        Plotly.newPlot('bar', data1, layout1);
 
         // create the trace variable for the bubble chart
-        
+        var trace2 = {
+            x: otuIds,
+            y: sampleValues,
+            text: labels,
+            marker: {
+                size: sampleValues,
+                color: otuIds
+            }
+        };
+
+        // create the data variable for the bubble chart
+        var data2 = [trace2]
+
+        // create layout variable for bubble chart
+        var layout2 = {
+            title: 'Sample OTUs',
+            showlegend: false,
+            height: 600,
+            width: 600
+        };
+
+        // plot the bubble chart
+        Plotly.newPlot('bubble', data2, layout2);
 
     });
 
 };
 
+
+// BUBBLE CHART
+// var trace1 = {
+//     x: [1, 2, 3, 4],
+//     y: [10, 11, 12, 13],
+//     text: ['A<br>size: 40', 'B<br>size: 60', 'C<br>size: 80', 'D<br>size: 100'],
+//     mode: 'markers',
+//     marker: {
+//         color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+//         size: [40, 60, 80, 100]
+//     }
+// };
+
+// var data = [trace1];
+
+// var layout = {
+//     title: 'Bubble Chart Hover Text',
+//     showlegend: false,
+//     height: 600,
+//     width: 600
+// };
+
+// Plotly.newPlot('myDiv', data, layout);
+
+
+// BAR CHART PLOTLY
 // var trace1 = {
 //     x: ['Liam', 'Sophie', 'Jacob', 'Mia', 'William', 'Olivia'],
 //     y: [8.0, 8.0, 12.0, 12.0, 13.0, 20.0],
