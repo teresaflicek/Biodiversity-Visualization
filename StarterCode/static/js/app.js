@@ -18,138 +18,138 @@ function init() {
         });
 
         // call funtions for plots and demographic information
-        // demoinfo(samples.names);
-        plots(samples.names);
+        demoinfo(samples.names);
+        // plots(samples.names);
     });
 };
 
 // function for the change event (when a new id is selected)
-function optionChanged(id) {
+function optionChanged(name) {
 
-    console.log(id)
-    // demoinfo(id)
-    plots(id)
+    console.log(name)
+    demoinfo(name)
+    // plots(id)
 };
 
 // function for demographic information from metadata
-// function demoinfo(id) {
-
-//     // read in the samples.json file
-//     d3.json("samples.json").then((samples) => {
-
-//         // create a variable for the demographic information
-//         var meta = samples.metadata;
-
-//         // check if data is loaded successfully
-//         console.log(meta)
-
-//         // filter metadata by id
-//         var idMeta = meta.filter(meta => meta.id.toString() === id)[0];
-
-//         // select the demographic information panel id
-//         var panel = d3.select("#sample-metadata");
-
-//         // clear the existing table when new id is chosen
-//         panel.html("");
-
-//         // loop through the data and render the table with the correct values
-//         Object.entries(idMeta).forEach(([key, value]) => {
-
-//             // check if data is loaded successfully
-//             console.log(key);
-
-//             // append the data to the panel
-//             var indInfo = panel.append("h4");
-//             indInfo.text(value);
-//         });
-
-//     });
-
-// };
-
-// function for plots (top 10 OTUs per id)
-function plots(id) {
+function demoinfo(name) {
 
     // read in the samples.json file
     d3.json("samples.json").then((samples) => {
 
-        // create a variable for the samples information
-        var samps = samples.samples;
-        console.log(samps)
+        // create a variable for the demographic information
+        var meta = samples.metadata;
 
-        // filter samples by id
-        var idSample = samps.filter(samps => samps.id.toString() === id)[0];
-        console.log(idSample)
+        // check if data is loaded successfully
+        console.log(meta)
 
-        // create variable for sample_values
-        var sampleValues = samps.sample_values.slice(0, 10);
+        // filter metadata by id
+        var idMeta = meta.filter(meta => meta.id.toString() === name);
+        console.log(idMeta)
+        // select the demographic information panel id
+        var panel = d3.select("#sample-metadata");
 
-        // create variable for otu_ids
-        var otuIds = samps.otu_ids.slice(0, 10);
+        // clear the existing table when new id is chosen
+        panel.html("");
 
-        // create variable for otu_labels
-        var labels = samps.otu_labels.slice(0, 10);
+        // loop through the data and render the table with the correct values
+        Object.entries(idMeta).forEach(([key, value]) => {
 
-        // create trace variable for bar plot
-        var trace1 = {
-            x: sampleValues,
-            y: otuIds,
-            type: 'bar',
-            text: labels,
-            orientation: 'h'
-        };
+            // check if data is loaded successfully
+            console.log(key);
 
-        // create data variable 
-        var data1 = [trace1];
-
-        // create layout variable for bar plot
-        var layout1 = {
-            title: 'Top 10 OTUs',
-            font: {
-                family: 'Raleway, sans-serif'
-            },
-            showlegend: false,
-            xaxis: {
-                tickangle: -45
-            },
-            yaxis: {
-                zeroline: false,
-                gridwidth: 2
-            },
-            bargap: 0.05
-        };
-
-        // plot the bar plot
-        Plotly.newPlot('bar', data1, layout1);
-
-        // create the trace variable for the bubble chart
-        var trace2 = {
-            x: otuIds,
-            y: sampleValues,
-            text: labels,
-            marker: {
-                size: sampleValues,
-                color: otuIds
-            }
-        };
-
-        // create the data variable for the bubble chart
-        var data2 = [trace2]
-
-        // create layout variable for bubble chart
-        var layout2 = {
-            title: 'Sample OTUs',
-            showlegend: false,
-            height: 600,
-            width: 600
-        };
-
-        // plot the bubble chart
-        Plotly.newPlot('bubble', data2, layout2);
+            // append the data to the panel
+            var indInfo = panel.append("row");
+            indInfo.text(value);
+        });
 
     });
 
 };
+
+// function for plots (top 10 OTUs per id)
+// function plots(id) {
+
+//     // read in the samples.json file
+//     d3.json("samples.json").then((samples) => {
+
+//         // create a variable for the samples information
+//         var samps = samples.samples;
+//         console.log(samps)
+
+//         // filter samples by id
+//         var idSample = samps.filter(samps => samps.id.toString() === id);
+//         console.log(idSample)
+
+//         // create variable for sample_values
+//         var sampleValues = idSample.sample_values.slice(0, 10);
+
+//         // create variable for otu_ids
+//         var otuIds = samps.otu_ids.slice(0, 10);
+
+//         // create variable for otu_labels
+//         var labels = samps.otu_labels.slice(0, 10);
+
+//         // create trace variable for bar plot
+//         var trace1 = {
+//             x: sampleValues,
+//             y: otuIds,
+//             type: 'bar',
+//             text: labels,
+//             orientation: 'h'
+//         };
+
+//         // create data variable 
+//         var data1 = [trace1];
+
+//         // create layout variable for bar plot
+//         var layout1 = {
+//             title: 'Top 10 OTUs',
+//             font: {
+//                 family: 'Raleway, sans-serif'
+//             },
+//             showlegend: false,
+//             xaxis: {
+//                 tickangle: -45
+//             },
+//             yaxis: {
+//                 zeroline: false,
+//                 gridwidth: 2
+//             },
+//             bargap: 0.05
+//         };
+
+//         // plot the bar plot
+//         Plotly.newPlot('bar', data1, layout1);
+
+//         // create the trace variable for the bubble chart
+//         var trace2 = {
+//             x: otuIds,
+//             y: sampleValues,
+//             text: labels,
+//             marker: {
+//                 size: sampleValues,
+//                 color: otuIds
+//             }
+//         };
+
+//         // create the data variable for the bubble chart
+//         var data2 = [trace2]
+
+//         // create layout variable for bubble chart
+//         var layout2 = {
+//             title: 'Sample OTUs',
+//             showlegend: false,
+//             height: 600,
+//             width: 600
+//         };
+
+//         // plot the bubble chart
+//         Plotly.newPlot('bubble', data2, layout2);
+
+//     });
+
+// };
 
 
 // BUBBLE CHART
@@ -206,14 +206,6 @@ function plots(id) {
 //   };
 
 //   Plotly.newPlot('myDiv', data, layout);
-
-
-
-
-
-
-
-
 
 
 
