@@ -23,6 +23,7 @@ function init() {
 function optionChanged(id) {
 
     console.log(id)
+    demoinfo(id)
 
 };
 
@@ -44,13 +45,24 @@ function demoinfo() {
         // select the demographic information panel id
         var panel = d3.select("#sample-metadata");
 
-        
+        // clear the existing table when new id is chosen
+        panel.html("");
+
+        Object.entries(idMeta).forEach(([key, value]) => {
+            
+            // check if data is loaded successfully
+            console.log(key);
+           
+            // append the data to the panel
+            var indInfo = panel.append();
+            indInfo.text([key, value]);
+        });
 
     });
 
 };
 
-
+// function for plots
 
 
 
