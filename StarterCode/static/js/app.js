@@ -23,7 +23,7 @@ function init() {
 function optionChanged(id) {
 
     console.log(id)
-    demoinfo(id)
+    // demoinfo()
 
 };
 
@@ -49,12 +49,12 @@ function demoinfo() {
         panel.html("");
 
         Object.entries(idMeta).forEach(([key, value]) => {
-            
+
             // check if data is loaded successfully
             console.log(key);
-           
+
             // append the data to the panel
-            var indInfo = panel.append();
+            var indInfo = panel.append("h4");
             indInfo.text([key, value]);
         });
 
@@ -63,9 +63,57 @@ function demoinfo() {
 };
 
 // function for plots
+function plots() {
 
+    // read in the samples.json file
+    d3.json("samples.json").then((samples) => {
 
+        // create a variable for the samples information
+        var samps = samples.samples;
+        console.log(samps)
 
+        // filter samples by id
+        var idSample = samps.filter(samps => samps.id.toString() === id)[0];
+
+        // create variable for sample_values
+        
+        // create variable for otu_ids
+
+        // create variable for otu_labels
+
+    });
+
+};
+
+// var trace1 = {
+//     x: ['Liam', 'Sophie', 'Jacob', 'Mia', 'William', 'Olivia'],
+//     y: [8.0, 8.0, 12.0, 12.0, 13.0, 20.0],
+//     type: 'bar',
+//     text: ['4.17 below the mean', '4.17 below the mean', '0.17 below the mean', '0.17 below the mean', '0.83 above the mean', '7.83 above the mean'],
+//     marker: {
+//       color: 'rgb(142,124,195)'
+//     }
+//   };
+
+//   var data = [trace1];
+
+//   var layout = {
+//     title: 'Number of Graphs Made this Week',
+//     font:{
+//       family: 'Raleway, sans-serif'
+//     },
+//     showlegend: false,
+//     xaxis: {
+//       tickangle: -45
+//     },
+//     yaxis: {
+//       zeroline: false,
+//       gridwidth: 2
+//     },
+//     bargap :0.05
+//   };
+
+//   Plotly.newPlot('myDiv', data, layout);
 
 
 
