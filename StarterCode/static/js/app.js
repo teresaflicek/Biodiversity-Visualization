@@ -1,27 +1,54 @@
-// read in the samples.json file
+// function for initialization
 function init() {
 
-
+    // read in the samples.json file
     d3.json("samples.json").then((samples) => {
 
+        // check if data loaded successfully
         console.log(samples)
         console.log(samples.names)
 
-        var dropdown = d3.select("#selDataset")
+        // select the dropdown 
+        var dropdown = d3.select("#selDataset");
 
-        samples.names.forEach(function(name){
+        // function for appending the id to the dropdown
+        samples.names.forEach(function (name) {
             console.log(name)
-            // <option value="cat">Cat</option>
             dropdown.append("option").text(name).attr("value", name)
         });
     });
 };
 
-function optionChanged(id){
+// function for the change event (when a new id is selected)
+function optionChanged(id) {
 
     console.log(id)
-}
 
+};
+
+// function for demographic information from metadata
+function demoinfo() {
+
+    // read in the samples.json file
+    d3.json("samples.json").then((samples) => {
+
+        // create a variable for the demographic information
+        var meta = samples.metadata;
+
+        // check if data is loaded successfully
+        console.log(meta)
+
+        // filter metadata by id
+        var idMeta = meta.filter(meta => meta.id.toString() === id)[0];
+
+        // select the demographic information panel id
+        var panel = d3.select("#sample-metadata");
+
+        
+
+    });
+
+};
 
 
 
