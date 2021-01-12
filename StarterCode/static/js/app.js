@@ -19,7 +19,7 @@ function init() {
 
         // call funtions for plots and demographic information
         demoinfo(samples.names);
-        // plots(samples.names);
+        plots(samples.names);
     });
 };
 
@@ -28,7 +28,7 @@ function optionChanged(name) {
 
     console.log(name)
     demoinfo(name)
-    // plots(name)
+    plots(name)
 };
 
 // function for demographic information from metadata
@@ -67,88 +67,92 @@ function demoinfo(name) {
 };
 
 // function for plots (top 10 OTUs per id)
-// function plots(name) {
+function plots(name) {
 
-//     // read in the samples.json file
-//     d3.json("samples.json").then((samples) => {
+    // read in the samples.json file
+    d3.json("samples.json").then((data) => {
 
-//         // create a variable for the samples information
-//         var samps = samples.samples;
-//         console.log(samps)
+        // create a variable for the samples information
+        var samps = data.samples;
+        console.log(samps)
 
-//         // filter samples by id
-//         var idSample = samps.filter(samps => samps.id.toString() === name);
-//         console.log(idSample)
+        // filter samples by id
+        var idSample = samps.filter(sampID => sampID.id == name)[0];
+        console.log(idSample)
 
-//         // create variable for sample_values
-//         var sampleValues = idSample.sample_values.slice(0, 10);
+        // create variable for sample_values
+        var sampleValues = idSample.sample_values;
+        console.log(sampleValues)
+        
+        // create variable for otu_ids
+        var otuIds = samps.otu_ids;
 
-//         // create variable for otu_ids
-//         var otuIds = samps.otu_ids.slice(0, 10);
+        // create variable for otu_labels
+        var labels = samps.otu_labels;
 
-//         // create variable for otu_labels
-//         var labels = samps.otu_labels.slice(0, 10);
+        // map the otu Id
+        var yticks = otuIds.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse();
 
-//         // create trace variable for bar plot
-//         var trace1 = {
-//             x: sampleValues,
-//             y: otuIds,
-//             type: 'bar',
-//             text: labels,
-//             orientation: 'h'
-//         };
+        // create trace variable for bar plot
+        var trace1 = {
+            x: sampleValues.slice(0,10),
+            y: otuIds,
+            type: 'bar',
+            text: yticks,
+            orientation: 'h'
+        };
 
-//         // create data variable 
-//         var data1 = [trace1];
+        // create data variable 
+        var data1 = [trace1];
 
-//         // create layout variable for bar plot
-//         var layout1 = {
-//             title: 'Top 10 OTUs',
-//             font: {
-//                 family: 'Raleway, sans-serif'
-//             },
-//             showlegend: false,
-//             xaxis: {
-//                 tickangle: -45
-//             },
-//             yaxis: {
-//                 zeroline: false,
-//                 gridwidth: 2
-//             },
-//             bargap: 0.05
-//         };
+        // create layout variable for bar plot
+        var layout1 = {
+            title: 'Top 10 OTUs',
+            font: {
+                family: 'Raleway, sans-serif'
+            },
+            showlegend: false,
+            xaxis: {
+                tickangle: -45
+            },
+            yaxis: {
+                zeroline: false,
+                gridwidth: 2
+            },
+            bargap: 0.05
+        };
 
-//         // plot the bar plot
-//         Plotly.newPlot('bar', data1, layout1);
+        // plot the bar plot
+        Plotly.newPlot('bar', data1, layout1);
 
-//         // create the trace variable for the bubble chart
-//         var trace2 = {
-//             x: otuIds,
-//             y: sampleValues,
-//             text: labels,
-//             marker: {
-//                 size: sampleValues,
-//                 color: otuIds
-//             }
-//         };
+        // create the trace variable for the bubble chart
+        var trace2 = {
+            x: otuIds,
+            y: sampleValues,
+            text: labels,
+            marker: {
+                size: sampleValues,
+                color: otuIds
+            }
+        };
 
-//         // create the data variable for the bubble chart
-//         var data2 = [trace2]
+        // create the data variable for the bubble chart
+        var data2 = [trace2]
 
-//         // create layout variable for bubble chart
-//         var layout2 = {
-//             title: 'Sample OTUs',
-//             showlegend: false,
-//             height: 600,
-//             width: 600
-//         };
+        // create layout variable for bubble chart
+        var layout2 = {
+            title: 'Sample OTUs',
+            showlegend: false,
+            height: 600,
+            width: 600
+        };
 
-//         // plot the bubble chart
-//         Plotly.newPlot('bubble', data2, layout2);
+        // plot the bubble chart
+        Plotly.newPlot('bubble', data2, layout2);
 
-//     });
+    });
 
-// };
+};
 
 
 // BUBBLE CHART
