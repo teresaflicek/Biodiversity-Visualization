@@ -28,7 +28,7 @@ function optionChanged(name) {
 
     console.log(name)
     demoinfo(name)
-    // plots(id)
+    // plots(name)
 };
 
 // function for demographic information from metadata
@@ -42,9 +42,9 @@ function demoinfo(name) {
 
         // check if data is loaded successfully
         console.log(meta)
-
+        console.log(name)
         // filter metadata by id
-        var idMeta = meta.filter(meta => meta.id.toString() === name);
+        var idMeta = meta.filter(demoInfo => demoInfo.id == name)[0];
         console.log(idMeta)
         // select the demographic information panel id
         var panel = d3.select("#sample-metadata");
@@ -56,11 +56,10 @@ function demoinfo(name) {
         Object.entries(idMeta).forEach(([key, value]) => {
 
             // check if data is loaded successfully
-            console.log(key);
+            console.log(`key ${key}`);
 
             // append the data to the panel
-            var indInfo = panel.append("row");
-            indInfo.text(value);
+            panel.append("h6").text(`${key}: ${value}`);
         });
 
     });
@@ -68,7 +67,7 @@ function demoinfo(name) {
 };
 
 // function for plots (top 10 OTUs per id)
-// function plots(id) {
+// function plots(name) {
 
 //     // read in the samples.json file
 //     d3.json("samples.json").then((samples) => {
@@ -78,7 +77,7 @@ function demoinfo(name) {
 //         console.log(samps)
 
 //         // filter samples by id
-//         var idSample = samps.filter(samps => samps.id.toString() === id);
+//         var idSample = samps.filter(samps => samps.id.toString() === name);
 //         console.log(idSample)
 
 //         // create variable for sample_values
