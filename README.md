@@ -16,4 +16,4 @@ The dataset reveals that a small handful of microbial species (also called opera
 
 ## Link
 
-[Belly Button Biodiversity Dashboard!](https://www.example.com)
+[Belly Button Biodiversity Dashboard!](https://teresaflicek.github.io/plotly-challenge/StarterCode/)
