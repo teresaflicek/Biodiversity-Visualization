@@ -10,7 +10,7 @@ The dataset reveals that a small handful of microbial species (also called opera
 
 ## Preview of Dashboard
 
-![dashboard containing belly button samples top 10 OTUs with demographic information, bar chart, bubble chart](image.jpg)
+![dashboard containing belly button samples top 10 OTUs with demographic information, bar chart, bubble chart](StarterCode/plotly_dash.png)
 
 ---
 
