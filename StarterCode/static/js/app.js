@@ -5,20 +5,19 @@ function init() {
     d3.json("samples.json").then((samples) => {
 
         // check if data loaded successfully
-    //    console.log(samples)
-    //    console.log(samples.names)
+       console.log(samples)
+       console.log(samples.names)
 
         // select the dropdown 
         var dropdown = d3.select("#selDataset");
 
         // function for appending the id to the dropdown
         samples.names.forEach(function (name) {
-      //      console.log(name)
+            console.log(name)
             dropdown.append("option").text(name).attr("value", name)
         });
 
         // call funtions for plots and demographic information
-      
         demoinfo(samples.names[0]);
         plots(samples.names[0]);
     });
@@ -26,7 +25,6 @@ function init() {
 
 // function for the change event (when a new id is selected)
 function optionChanged(name) {
-
     console.log(name)
     demoinfo(name)
     plots(name)
@@ -44,9 +42,11 @@ function demoinfo(name) {
         // check if data is loaded successfully
         console.log(meta)
         console.log(name)
+       
         // filter metadata by id
         var idMeta = meta.filter(demoInfo => demoInfo.id == name)[0];
         console.log(idMeta)
+        
         // select the demographic information panel id
         var panel = d3.select("#sample-metadata");
 
@@ -146,7 +146,7 @@ function plots(name) {
             title: 'Sample OTUs',
             showlegend: false,
             height: 600,
-            width: 600,
+            width: 1200,
             margin: {t:30}
         };
 
@@ -159,5 +159,3 @@ function plots(name) {
 
 // call init function
 init();
-
-
